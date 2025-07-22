@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -12,7 +12,7 @@ namespace LibraryManagementSystem.Models
         {
 
         }
-
+       
 
         public override void ShowPermissions()
         {
@@ -20,4 +20,3 @@ namespace LibraryManagementSystem.Models
         }
     }
 }
-
