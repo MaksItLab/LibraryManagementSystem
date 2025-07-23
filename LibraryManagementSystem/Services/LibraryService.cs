@@ -31,86 +31,37 @@ namespace LibraryManagementSystem.Services
 
         public Book FindBook(string isbn)
         {
-            
-            switch (isbn)
+            if (books.Exists(p => p.ISBN == isbn))
             {
-                case "23834":
-                    Console.WriteLine("вы выбрали книгу: \nbooknumber1; autor1. ");                    
-                    break;
-                case "86746":
-                    Console.WriteLine("вы выбрали книгу: \nbooknumber2; autor2. ");                  
-                    break;
-                case "03482":
-                    Console.WriteLine("вы выбрали книгу: \nbooknumber3; autor3. ?");                  
-                    break;
-                case "45876":
-                    Console.WriteLine("вы вывыбрали книгу: \nbooknumber4; autor4. ");                   
-                    break;
-                default:
-                    Console.WriteLine("введен некорректный номер isbn, повторите попытку!");
-                    break;
-                    
+                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn));
             }
+            else 
+            {
+                Console.WriteLine("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
+            }
+
             return books[0];
         }
 
         public void LendBook(string isbn, string readerId)
         {
-            switch (isbn)
+            if (books.Exists(p => p.ISBN == isbn))
             {
-                case "23834":
-
-                    Console.WriteLine("вы хотите одолжилть книгу: \nbooknumber1; autor1. ?");
-                    string deistvie = Console.ReadLine();
-                    if (deistvie == "yes")
-                    {
-                        Console.WriteLine("книга успешно взята");
-                    }
-                    else
-                    {
-                        Console.WriteLine("действие отменено, некорректная коммада!");
-                    }
-                    break;
-                case "86746":
-                    Console.WriteLine("вы хотите одолжилть книгу: \nbooknumber2; autor2. ?");
-                    string deistvie1 = Console.ReadLine();
-                    if (deistvie1 == "yes")
-                    {
-                        Console.WriteLine("книга успешно взята");
-                    }
-                    else
-                    {
-                        Console.WriteLine("действие отменено, некорректная коммада!");
-                    }
-                    break;
-                case "03482":
-                    Console.WriteLine("вы хотите одолжилть книгу: \nbooknumber3; autor3. ?");
-                    string deistvie2 = Console.ReadLine();
-                    if (deistvie2 == "yes")
-                    {
-                        Console.WriteLine("книга успешно взята");
-                    }
-                    else
-                    {
-                        Console.WriteLine("действие отменено, некорректная коммада!");
-                    }
-                    break;
-                case "45876":
-                    Console.WriteLine("вы хотите одолжилть книгу: \nbooknumber4; autor4. ?");
-                    string deistvie3 = Console.ReadLine();
-                    if (deistvie3 == "yes")
-                    {
-                        Console.WriteLine("книга успешно взята");
-                    }
-                    else
-                    {
-                        Console.WriteLine("действие отменено, некорректная коммада!");
-                    }
-                    break;
-                default:
-                    Console.WriteLine("введен некорректный номер isbn, повторите попытку!");
-                    break;
-
+                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn) + "хотите ее взять?");
+                string variant = Console.ReadLine();
+                if (variant == "yes")
+                {
+                   
+                    Console.WriteLine("книга; " + books.Find(p => p.ISBN == isbn) + "успешно взята!");
+                }
+                else
+                {
+                    Console.WriteLine("неверная комманда! ошибка!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
             }
         }
 
@@ -120,89 +71,50 @@ namespace LibraryManagementSystem.Services
             {
                 Console.WriteLine("книга номер " + i + ":  " + books[i].Title + ";  " +  books[i].Author + "ISBN: " + books[i].ISBN + ";  " + "год выпуска: " + books[i].Year);
             }
-            return new List<Book>();
+            return books;
         }
 
         public void RemoveBook(string isbn)
         {
-            switch (isbn)
+            if (books.Exists(p => p.ISBN == isbn))
             {
-                case "23834":
-                    Console.WriteLine("вы хотите удалить книгу: \nbooknumber1; autor1. ?");
-                    string deistvie = Console.ReadLine();
-                    if (deistvie == "yes")
-                    {
-                        books.RemoveAt(0);
-                    }
-                    else
-                    {
-                        Console.WriteLine("действие отменено, некорректная комманда!");
-                    }
-                    break;
-                case "86746":
-                    Console.WriteLine("вы хотите удалить книгу: \nbooknumber2; autor2. ?");
-                    string deistvie1 = Console.ReadLine();
-                    if (deistvie1 == "yes")
-                    {
-                        books.RemoveAt(1);
-                    }
-                    else
-                    {
-                        Console.WriteLine("действие отменено, некорректная комманда!");
-                    }
-                    break;
-                case "03482":
-                    Console.WriteLine("вы хотите удалить книгу: \nbooknumber3; autor3. ?");
-                    string deistvie2 = Console.ReadLine();
-                    if (deistvie2 == "yes")
-                    {
-                        books.RemoveAt(2);
-                    }
-                    else
-                    {
-                        Console.WriteLine("действие отменено, некорректная комманда!");
-                    }
-                    break;
-                case "45876":
-                    Console.WriteLine("вы хотите удалить книгу: \nbooknumber4; autor4. ?");
-                    string deistvie3 = Console.ReadLine();
-                    if (deistvie3 == "yes")
-                    {
-                        books.RemoveAt(3);
-                    }
-                    else
-                    {
-                        Console.WriteLine("действие отменено, некорректная комманда!");
-                    }
-                    break;
-                default:
-                    Console.WriteLine("введен некорректный номер isbn, повторите попытку!");
-                    break;
-
+                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn) + "\nвы действительно хотите ее удалить? \nyes/no");
+                string variant = Console.ReadLine();
+                if (variant == "yes")
+                {
+                    books.Remove(books.Find(p => p.ISBN == isbn));
+                }
+                else
+                {
+                    Console.WriteLine("удаление отменено!");
+                }
             }
+            else
+            {
+                Console.WriteLine("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
+            }
+
         }
 
         public void ReturnBook(string isbn)
         {
-            switch (isbn)
+            if (books.Exists(p => p.ISBN == isbn))
             {
-                case "23834":
+                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn) + "хотите ее вернуть?");
+                string variant = Console.ReadLine();
+                if (variant == "yes")
+                {
 
-                    Console.WriteLine("вы одолжили книгу: \nbooknumber1; autor1. ");
-                    break;
-                case "86746":
-                    Console.WriteLine("вы одолжили книгу: \nbooknumber2; autor2. ");
-                    break;
-                case "03482":
-                    Console.WriteLine("вы одолжили книгу: \nbooknumber3; autor3. ");
-                    break;
-                case "45876":
-                    Console.WriteLine("вы одолжили книгу: \nbooknumber4; autor4. ");
-                    break;
-                default:
-                    Console.WriteLine("введен некорректный номер isbn, повторите попытку!");
-                    break;
-
+                    Console.WriteLine("книга; " + books.Find(p => p.ISBN == isbn) + "успешно возвращена!");
+                }
+                else
+                {
+                    Console.WriteLine("неверная комманда! ошибка!");
+                }
+            }
+            else
+            {
+                Console.WriteLine("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
             }
         }
 
