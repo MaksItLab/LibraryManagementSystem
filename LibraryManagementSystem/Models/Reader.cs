@@ -8,9 +8,9 @@ namespace LibraryManagementSystem.Models
 {
     public class Reader : User
     {
-        public Reader(string name) : base(name)
+        public Reader(string name, string Reader) : base(name)
         {
-
+            Role = Reader;
         }
        
 

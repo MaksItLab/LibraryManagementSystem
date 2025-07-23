@@ -8,9 +8,9 @@ namespace LibraryManagementSystem.Models
 {
     public class Librarian : User
     {
-        public Librarian(string name) : base(name)
+        public Librarian(string name, string Librarian) : base(name)
         {
-            
+            Role = Librarian;
         }
 
         public override void ShowPermissions()

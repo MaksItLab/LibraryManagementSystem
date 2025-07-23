@@ -15,6 +15,7 @@ namespace LibraryManagementSystem.Services
 
         public void AddBook(Book book)
         {
+            Console.WriteLine("книга успешно добавлена!");
             
         }
 
