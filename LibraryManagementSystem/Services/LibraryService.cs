@@ -31,28 +31,30 @@ namespace LibraryManagementSystem.Services
 
         public Book FindBook(string isbn)
         {
+            Book book = null;
             if (books.Exists(p => p.ISBN == isbn))
             {
-                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn));
+                book = books.Find(p => p.ISBN == isbn);
+                Console.WriteLine("вы выбрали книгу: " + book.Title);
             }
             else 
             {
                 Console.WriteLine("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
             }
 
-            return books[0];
+            return book;
         }
 
         public void LendBook(string isbn, string readerId)
         {
             if (books.Exists(p => p.ISBN == isbn))
             {
-                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn) + "хотите ее взять?");
+                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn).Title + "хотите ее взять?");
                 string variant = Console.ReadLine();
                 if (variant == "yes")
                 {
                    
-                    Console.WriteLine("книга; " + books.Find(p => p.ISBN == isbn) + "успешно взята!");
+                    Console.WriteLine("книга; " + books.Find(p => p.ISBN == isbn).Title + "успешно взята!");
                 }
                 else
                 {
@@ -78,7 +80,7 @@ namespace LibraryManagementSystem.Services
         {
             if (books.Exists(p => p.ISBN == isbn))
             {
-                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn) + "\nвы действительно хотите ее удалить? \nyes/no");
+                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn).Title + "\nвы действительно хотите ее удалить? \nyes/no");
                 string variant = Console.ReadLine();
                 if (variant == "yes")
                 {
@@ -100,12 +102,12 @@ namespace LibraryManagementSystem.Services
         {
             if (books.Exists(p => p.ISBN == isbn))
             {
-                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn) + "хотите ее вернуть?");
+                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn).Title + "хотите ее вернуть?");
                 string variant = Console.ReadLine();
                 if (variant == "yes")
                 {
 
-                    Console.WriteLine("книга; " + books.Find(p => p.ISBN == isbn) + "успешно возвращена!");
+                    Console.WriteLine("книга; " + books.Find(p => p.ISBN == isbn).Title + "успешно возвращена!");
                 }
                 else
                 {
