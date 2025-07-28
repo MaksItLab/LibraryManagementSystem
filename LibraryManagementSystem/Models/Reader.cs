@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,9 +8,9 @@ namespace LibraryManagementSystem.Models
 {
     public class Reader : User
     {
-        public Reader(string reader) : base(reader)
+        public Reader(string name) : base(name)
         {
-
+            Role = "Reader";
         }
        
 
