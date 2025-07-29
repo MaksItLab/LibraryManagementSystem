@@ -1,10 +1,10 @@
 ﻿using LibraryManagementSystem.Interfaces;
 using LibraryManagementSystem.Models;
-using Newtonsoft.Json;
+
 using System;
 using System.Collections.Generic;
 using System.IO;
-
+using System.Text.Json;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -17,7 +17,12 @@ namespace LibraryManagementSystem.Services
     {
         public List<Book> Load(string filePath)
         {
-            throw new NotImplementedException();
+           
+                string jsonString = File.ReadAllText("books.json");
+                List<Book> book1 = JsonSerializer.Deserialize<List<Book>>(jsonString);
+                return book1;
+
+
         }
 
         public void Save(List<Book> data, string filePath)
@@ -25,8 +30,9 @@ namespace LibraryManagementSystem.Services
             
             for (int i = 0; i < data.Count; i++) 
             {
-                //string jsonString = JsonSerializer.Serialize();
-                //File.WriteAllText("books.json", jsonString);
+                  
+                string jsonString = JsonSerializer.Serialize(data[i]);
+                File.WriteAllText("books.json", jsonString);
             }
         }
     }
