@@ -17,23 +17,30 @@ namespace LibraryManagementSystem.Services
     {
         public List<Book> Load(string filePath)
         {
-           
+            try
+            {
                 string jsonString = File.ReadAllText("books.json");
                 List<Book> book1 = JsonSerializer.Deserialize<List<Book>>(jsonString);
                 return book1;
-
+            }
+            catch 
+            {
+                Console.WriteLine("возникла ошибка, проверьте корректность ввода!");
+                return null;
+            }
 
         }
 
         public void Save(List<Book> data, string filePath)
         {
+           
+                for (int i = 0; i < data.Count; i++)
+                {
+
+                    string jsonString = JsonSerializer.Serialize(data[i]);
+                    File.WriteAllText("books.json", jsonString);
+                }
             
-            for (int i = 0; i < data.Count; i++) 
-            {
-                  
-                string jsonString = JsonSerializer.Serialize(data[i]);
-                File.WriteAllText("books.json", jsonString);
-            }
         }
     }
 }
