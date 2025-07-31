@@ -25,8 +25,16 @@ namespace LibraryManagementSystem.Services
 
         public void AddBook(Book book)
         {
-            books.Add(book);
-            Console.WriteLine("книга успешно добавлена!");            
+            if (books.Exists(p => p.ISBN != book.ISBN))
+            {
+                books.Add(book);
+                Console.WriteLine("книга успешно добавлена!");
+            }
+            else
+            {
+                Console.WriteLine("книга с таким номером уже существует! проверьте корректность введенных данных!");
+            }
+                        
         }
 
         public Book FindBook(string isbn)
