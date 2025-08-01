@@ -17,6 +17,7 @@ namespace LibraryManagementSystem.Services
     {
         public List<Book> Load(string filePath)
         {
+            
             try
             {
                 string jsonString = File.ReadAllText("books.json");
@@ -26,7 +27,7 @@ namespace LibraryManagementSystem.Services
             catch 
             {
                 Console.WriteLine("возникла ошибка, проверьте корректность ввода!");
-                return null;
+                return new List<Book>();
             }
         }
 

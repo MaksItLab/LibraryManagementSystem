@@ -15,18 +15,13 @@ namespace LibraryManagementSystem.Services
 {
     public class LibraryService : ILibraryService
     {
-        JsonStorage jsonStorage = new JsonStorage();
+        JsonStorage jsonStorage = new JsonStorage();       
         public List<Book> books;
         public LibraryService()
         {
-            books = new List<Book>()
-            {
-                new Book("booknumber1", "autor1", "23834", 1883),
-                new Book("booknumber2", "autor2", "86746", 1931),
-                new Book("booknumber3", "autor3", "03482", 1722),
-                new Book("booknumber4", "autor4", "45876", 2001),               
-            };
-            books = jsonStorage.Load("books.json");           
+            books = new List<Book>();
+            string path = Path.GetFullPath("books.json");
+            books = jsonStorage.Load(path);           
         }
 
         public void AddBook(Book book) 
@@ -34,7 +29,8 @@ namespace LibraryManagementSystem.Services
             if (books.Exists(p => p.ISBN != book.ISBN))
             {
                 books.Add(book);
-                jsonStorage.Save(books, "books.json");                            
+                string path = Path.GetFullPath("books.json");
+                jsonStorage.Save(books, path);                            
                 Console.WriteLine("книга успешно добавлена!");
             }
             else
