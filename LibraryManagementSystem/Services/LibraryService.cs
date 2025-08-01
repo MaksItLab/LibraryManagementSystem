@@ -21,7 +21,7 @@ namespace LibraryManagementSystem.Services
         {
             books = new List<Book>();
             string path = Path.GetFullPath("books.json");
-            books = jsonStorage.Load(path);           
+           // books = jsonStorage.Load(path);           
         }
 
         public void AddBook(Book book) 
@@ -35,6 +35,9 @@ namespace LibraryManagementSystem.Services
             }
             else
             {
+                books.Add(book);
+                string path = Path.GetFullPath("books.json");
+                jsonStorage.Save(books, path);
                 Console.WriteLine("книга с таким номером уже существует! проверьте корректность введенных данных!");
             }           
         }

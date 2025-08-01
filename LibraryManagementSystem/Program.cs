@@ -15,7 +15,8 @@ namespace LibraryManagementSystem
         {           
             LibraryService libraryService = new LibraryService();
             Book book = new Book("book1", "автор1", "78698", 1976);            
-            Book book1 = new Book("book2", "автор2", "75234", 1924);           
+            Book book1 = new Book("book2", "автор2", "75234", 1924);
+            libraryService.ListBooks();
             libraryService.AddBook(book);          
             libraryService.books.Add(book);           
         }       

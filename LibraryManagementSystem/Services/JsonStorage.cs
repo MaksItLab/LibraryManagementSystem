@@ -18,17 +18,18 @@ namespace LibraryManagementSystem.Services
         public List<Book> Load(string filePath)
         {
             
-            try
-            {
+            //try
+            //{
+                //filePath = Path.GetFullPath("books.json");
                 string jsonString = File.ReadAllText("books.json");
                 List<Book> book1 = JsonSerializer.Deserialize<List<Book>>(jsonString);
                 return book1;
-            }
-            catch 
-            {
-                Console.WriteLine("возникла ошибка, проверьте корректность ввода!");
-                return new List<Book>();
-            }
+           // }
+           // catch 
+           // {
+           //     Console.WriteLine("возникла ошибка, проверьте корректность ввода!");
+           //     return new List<Book>();
+           // }
         }
 
         public void Save(List<Book> data, string filePath)
