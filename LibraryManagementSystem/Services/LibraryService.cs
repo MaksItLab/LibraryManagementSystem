@@ -13,7 +13,7 @@ using System.Text.Json.Serialization;
 
 namespace LibraryManagementSystem.Services
 {
-    public class LibraryService : ILibraryService, IJsonStorage
+    public class LibraryService : ILibraryService
     {
         JsonStorage jsonStorage = new JsonStorage();
         public List<Book> books;
@@ -26,8 +26,7 @@ namespace LibraryManagementSystem.Services
                 new Book("booknumber3", "autor3", "03482", 1722),
                 new Book("booknumber4", "autor4", "45876", 2001),               
             };
-            books = jsonStorage.Load("books.json");
-           
+            books = jsonStorage.Load("books.json");           
         }
 
         public void AddBook(Book book) 
@@ -35,15 +34,13 @@ namespace LibraryManagementSystem.Services
             if (books.Exists(p => p.ISBN != book.ISBN))
             {
                 books.Add(book);
-                jsonStorage.Save(books, "books.json");
-                              
+                jsonStorage.Save(books, "books.json");                            
                 Console.WriteLine("книга успешно добавлена!");
             }
             else
             {
                 Console.WriteLine("книга с таким номером уже существует! проверьте корректность введенных данных!");
-            }
-            
+            }           
         }
 
         public Book FindBook(string isbn)
@@ -69,8 +66,7 @@ namespace LibraryManagementSystem.Services
                 Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn).Title + "хотите ее взять?");
                 string variant = Console.ReadLine();
                 if (variant == "yes")
-                {
-                   
+                {                  
                     Console.WriteLine("книга; " + books.Find(p => p.ISBN == isbn).Title + "успешно взята!");
                 }
                 else
@@ -93,21 +89,6 @@ namespace LibraryManagementSystem.Services
             return books;
         }
         
-        public List<Book> Load(string filePath)
-        {
-            try
-            {
-                string jsonString = File.ReadAllText("books.json");
-                List<Book> book1 = JsonSerializer.Deserialize<List<Book>>(jsonString);
-                return book1;
-            }
-            catch
-            {
-                Console.WriteLine("возникла ошибка, проверьте корректность ввода!");
-                return null;
-            }
-        }
-        
         public void RemoveBook(string isbn)
         {
             if (books.Exists(p => p.ISBN == isbn))
@@ -127,7 +108,6 @@ namespace LibraryManagementSystem.Services
             {
                 Console.WriteLine("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
             }
-
         }
 
         public void ReturnBook(string isbn)
@@ -138,7 +118,6 @@ namespace LibraryManagementSystem.Services
                 string variant = Console.ReadLine();
                 if (variant == "yes")
                 {
-
                     Console.WriteLine("книга; " + books.Find(p => p.ISBN == isbn).Title + "успешно возвращена!");
                 }
                 else
@@ -150,17 +129,6 @@ namespace LibraryManagementSystem.Services
             {
                 Console.WriteLine("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
             }
-        }
-        
-        public void Save(List<Book> data, string filePath)
-        {
-            for (int i = 0; i < data.Count; i++)
-            {
-
-                string jsonString = JsonSerializer.Serialize(data[i]);
-                File.WriteAllText("books.json", jsonString);
-            }
-        }
-        
+        }  
     }
 }

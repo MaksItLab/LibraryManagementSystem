@@ -28,19 +28,15 @@ namespace LibraryManagementSystem.Services
                 Console.WriteLine("возникла ошибка, проверьте корректность ввода!");
                 return null;
             }
-
         }
 
         public void Save(List<Book> data, string filePath)
-        {
-           
+        {          
                 for (int i = 0; i < data.Count; i++)
                 {
-
                     string jsonString = JsonSerializer.Serialize(data[i]);
                     File.WriteAllText("books.json", jsonString);
-                }
-            
+                }           
         }
     }
 }
