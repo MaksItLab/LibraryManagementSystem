@@ -47,7 +47,7 @@ namespace LibraryManagementSystem.Services
                 throw new Exception("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
             }
 
-            book = books.Find(p => p.ISBN == isbn);
+            book = books.Find(p => p.ISBN == isbn);           
             Console.WriteLine("вы выбрали книгу: " + book.Title);
 
             return book;
@@ -60,7 +60,8 @@ namespace LibraryManagementSystem.Services
             {
                 throw new Exception("неудалось выполнить действие, проверьте состояние книги в списке!");
             }
-            Console.WriteLine("вы взяли книгу: " + book.Title + (book.IsAvailable == false));
+            book.MarkAsLent();
+            Console.WriteLine("вы взяли книгу: " + book.Title + "состояние: " + book.IsAvailable);           
         }
 
         public List<Book> ListBooks()
@@ -90,8 +91,9 @@ namespace LibraryManagementSystem.Services
             if (book == null)
             {
                 throw new Exception("неудалось выполнить действие, проверьте состояние книги в списке!");
-            }           
-            Console.WriteLine("вы вернули книгу: " + book.Title + (book.IsAvailable == true));
+            }
+            book.MarkAsReturned();
+            Console.WriteLine("вы вернули книгу: " + book.Title + "состояние: " + book.IsAvailable);
         }
 
         
