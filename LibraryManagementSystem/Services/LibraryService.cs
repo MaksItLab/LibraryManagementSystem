@@ -55,77 +55,53 @@ namespace LibraryManagementSystem.Services
 
         public void LendBook(string isbn, string readerId)
         {
-            if (books.Exists(p => p.ISBN == isbn))
+            Book book = books.Find(p => p.IsAvailable == true);
+            Book book1 = books.Find(p => p.ISBN == isbn);
+            if (book == null || book1 == null)
             {
-                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn).Title + "хотите ее взять?");
-                string variant = Console.ReadLine();
-                if (variant == "yes")
-                {
-                   
-                    Console.WriteLine("книга; " + books.Find(p => p.ISBN == isbn).Title + "успешно взята!");
-                }
-                else
-                {
-                    Console.WriteLine("неверная комманда! ошибка!");
-                }
+                throw new Exception("неудалось выполнить действие, проверьте состояние книги в списке!");
             }
-            else
-            {
-                Console.WriteLine("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
-            }
+
+            book1 = books.Find(p => p.ISBN == isbn);
+            
+            Console.WriteLine("вы взяли книгу: " + book.Title + "" + (book.IsAvailable == false));
         }
 
         public List<Book> ListBooks()
         {
             for (int i = 0; i < books.Count; i++) 
             {
-                Console.WriteLine("книга номер " + i + ":  " + books[i].Title + ";  " +  books[i].Author + "ISBN: " + books[i].ISBN + ";  " + "год выпуска: " + books[i].Year);
+                Console.WriteLine("книга номер " + i + ":  " + books[i].Title + ";  " +  books[i].Author + "ISBN: " + books[i].ISBN + ";  " + "год выпуска: " + books[i].Year + ": " + "состояние: " + books[i].IsAvailable);
             }
             return books;
         }
 
         public void RemoveBook(string isbn)
         {
-            if (books.Exists(p => p.ISBN == isbn))
+            Book book = books.Find(p => p.IsAvailable == true);
+            Book book1 = books.Find(p => p.ISBN == isbn);
+            if (book == null || book1 == null)
             {
-                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn).Title + "\nвы действительно хотите ее удалить? \nyes/no");
-                string variant = Console.ReadLine();
-                if (variant == "yes")
-                {
-                    books.Remove(books.Find(p => p.ISBN == isbn));
-                }
-                else
-                {
-                    Console.WriteLine("удаление отменено!");
-                }
+                throw new Exception("неудалось выполнить действие, проверьте состояние книги в списке!");
             }
-            else
-            {
-                Console.WriteLine("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
-            }
+
+            book1 = books.Find(p => p.ISBN == isbn);
+            books.Remove(books.Find(p => p.ISBN == isbn));
+            Console.WriteLine("книга успешно удалена! ");
 
         }
 
         public void ReturnBook(string isbn)
         {
-            if (books.Exists(p => p.ISBN == isbn))
+            Book book = books.Find(p => p.IsAvailable == false);
+            Book book1 = books.Find(p => p.ISBN == isbn);
+            if (book == null || book1 == null)
             {
-                Console.WriteLine("вы выбрали книгу: " + books.Find(p => p.ISBN == isbn).Title + "хотите ее вернуть?");
-                string variant = Console.ReadLine();
-                if (variant == "yes")
-                {
+                throw new Exception("неудалось выполнить действие, проверьте состояние книги в списке!");
+            }
 
-                    Console.WriteLine("книга; " + books.Find(p => p.ISBN == isbn).Title + "успешно возвращена!");
-                }
-                else
-                {
-                    Console.WriteLine("неверная комманда! ошибка!");
-                }
-            }
-            else
-            {
-                Console.WriteLine("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
-            }
+            book1 = books.Find(p => p.ISBN == isbn);
+            Console.WriteLine("вы вернули книгу: " + book.Title + "" + (book.IsAvailable == true));
         }
 
         
