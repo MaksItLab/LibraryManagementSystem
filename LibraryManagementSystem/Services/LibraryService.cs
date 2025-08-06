@@ -60,7 +60,7 @@ namespace LibraryManagementSystem.Services
             {
                 throw new Exception("неудалось выполнить действие, проверьте состояние книги в списке!");
             }
-            Console.WriteLine("вы взяли книгу: " + book.Title + "" + (book.IsAvailable == false));
+            Console.WriteLine("вы взяли книгу: " + book.Title + (book.IsAvailable == false));
         }
 
         public List<Book> ListBooks()
