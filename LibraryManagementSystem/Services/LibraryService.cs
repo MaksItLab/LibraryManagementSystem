@@ -12,20 +12,17 @@ namespace LibraryManagementSystem.Services
     public class LibraryService : ILibraryService
     {
         public List<Book> books;
+        private JsonStorage jsonStorage;
         public LibraryService()
         {
-            books = new List<Book>()
-            {
-                new Book("booknumber1", "autor1", "23834", 1883),
-                new Book("booknumber2", "autor2", "86746", 1931),
-                new Book("booknumber3", "autor3", "03482", 1722),
-                new Book("booknumber4", "autor4", "45876", 2001),
-            };
+            jsonStorage = new JsonStorage();
+
+            books = jsonStorage.Load("books.json");
         }
 
         public void AddBook(Book book)
         {
-            if (books.Exists(p => p.ISBN != book.ISBN))
+            if (!books.Exists(p => p.ISBN == book.ISBN))
             {
                 books.Add(book);
                 Console.WriteLine("книга успешно добавлена!");
@@ -33,22 +30,25 @@ namespace LibraryManagementSystem.Services
             else
             {
                 Console.WriteLine("книга с таким номером уже существует! проверьте корректность введенных данных!");
-            }
-                        
+            }       
+        }
+
+        public void SaveAllBoksInFile()
+        {
+            jsonStorage.Save(books, "books.json");
         }
 
         public Book FindBook(string isbn)
         {
-            Book book = null;
-            if (books.Exists(p => p.ISBN == isbn))
+            Book book = books.Find(p => p.ISBN == isbn);
+
+            if (book == null)
             {
-                book = books.Find(p => p.ISBN == isbn);
-                Console.WriteLine("вы выбрали книгу: " + book.Title);
+                throw new Exception("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
             }
-            else 
-            {
-                Console.WriteLine("выбранная вами книга не найдена, проверьте корректность вашего ввода!");
-            }
+
+            book = books.Find(p => p.ISBN == isbn);
+            Console.WriteLine("вы выбрали книгу: " + book.Title);
 
             return book;
         }

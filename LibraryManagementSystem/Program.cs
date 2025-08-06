@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using LibraryManagementSystem.Models;
+using LibraryManagementSystem.Services;
 
 namespace LibraryManagementSystem
 {
@@ -12,8 +13,11 @@ namespace LibraryManagementSystem
     {
         static void Main(string[] args)
         {
+            var system = new LibraryService();
 
+            system.ListBooks();
+
+            system.FindBook("1");
         }
-       
     }
 }
